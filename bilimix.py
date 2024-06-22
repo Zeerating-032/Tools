@@ -70,7 +70,7 @@ def mixup(out_dir, data):
     for part in data:
         print(part["page"], part["part"])
         all_page.add(part["page"])
-        if part["part"]+".mp4" in has_output:
+        if f"{str(part["page"])}_{part["part"].replace("/", "&")}.mp4" in has_output:
             ignore_page.add(part["page"])
     print("已輸出影片編號，不再輸出:", ignore_page)
     
@@ -92,7 +92,7 @@ def mixup(out_dir, data):
     for part in data:
         if part["page"] not in mix_pages:
             continue
-        merge(part["media_type"], out_dir, part["part"], part["media_fdr"])
+        merge(part["media_type"], out_dir, f"{str(part["page"])}_{part["part"]}", part["media_fdr"])
 
 def merge(typ, out_dir, name, media_fdr):
     if typ == "m4s":
@@ -116,8 +116,9 @@ def merge(typ, out_dir, name, media_fdr):
                     leave = 1
                     break
         if not leave:
+            name = name.replace("/", "&") # 避免被視為資料夾層
             os.system(
-                f'ffmpeg -safe 0 -f concat -i temp.txt -c copy "{os.path.join(out_dir, name)}.mp4"'
+                f'ffmpeg -hide_banner -loglevel info -safe 0 -f concat -i temp.txt -c copy "{os.path.join(out_dir, name)}.mp4"'
             )
         os.remove("temp.txt")
 
