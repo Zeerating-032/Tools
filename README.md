@@ -7,3 +7,4 @@
 5. do_ffmpeg.py: 批量處理檔案，有m4a轉檔為mp3、提取mp4影片音檔為m4a兩種功能，變數DO修改當前功能
 6. mangaowl.py: 陽春的下載器，內有說明，需要requests和beautifulsoup
 7. manhuaren.py: 陽春的下載器，內有說明，需要selenium
+8. tera_rename.py: 因為terabox不能上傳影片而做的，指定資料夾首刪掉內部檔案副檔名最後一字
